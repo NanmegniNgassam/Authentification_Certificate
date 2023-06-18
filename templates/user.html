@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: linear-gradient(#daa520 50%, #333 50%);
+            width: 100%;
+            height: 100vh;
+        }
+        .container__form {
+            width: 40%;
+            min-width: 300px;
+            max-width: 800px;
+            background-color: #fffffb;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px gray;
+        }
+
+        span {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .user__action {
+            border: 1px solid black;
+            color: #fffffb;
+            background-color: #333;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .container__title {
+            text-align: center;
+        }
+
+        .user__profil {
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .user__infos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Authentification RS40 Private club - Home</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container__form " id="loginForm">
+            <h1 class="container__title">Welcome on your account</h1>
+            <div class="user">
+                <i class='bx bxs-user-circle bx-flip-horizontal bx-lg user__profil' style='color:#daa520' ></i>
+                <div class="user__infos">
+                    <span class="user__data user__name">{{userName}}</span>
+                    <span id="password">Le message secret du mois est : </span>
+                    <span class="user__data password">{{ message_secret }}</span>
+                    <form action="{{ url_for('logout') }}">
+                       <button type="submit" class="user__action">Log out</button> 
+                    </form>
+                </div>
+            </div>
+        </div>		
+    </div>
+
+    <script>
+        let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+        let currentDate = new Date();
+        currentMonth = months[currentDate.getMonth()];
+
+        let password = document.getElementById('password');
+        password.textContent = `Le message secret de ${currentMonth} est :`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: linear-gradient(goldenrod 50%, #333 50%);
+            width: 100%;
+            height: 100vh;
+        }
+
+        .container__form {
+            width: 40%;
+            min-width: 300px;
+            max-width: 800px;
+            background-color: #fffffb;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px gray;
+        }
+
+        .vanished {
+            display: none;
+        }
+
+        .form-select {
+            display: flex;
+            border: 1px solid black;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .form-select .form-option {
+            text-align: center;
+            width: 50%;;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+        }
+
+        .form-select .activated {
+            color: #fffffb;
+            background-color: black;
+        }
+
+        .container__form .alert {
+            text-align: center;
+            line-height: 30px;
+            width: 80%;
+            background-color: rgb(201, 64, 91);
+            margin: 0 auto;
+            margin-bottom: 10px;
+            color: #fffffb;
+        }
+
+        .container__form .alert-granted {
+            background-color: rgb(112, 168, 27);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label, .form-input {
+            display: block;
+            margin-bottom: 10px;
+            width: 250px;
+            margin: 0 auto;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        .form-input {
+            height: 30px;
+            outline: none;
+            padding: 2px 10px;
+        }
+
+        .form-input:hover,.form-input:focus  {
+            width: 280px;
+            border: none;
+            outline: 1px solid goldenrod;
+        }
+
+        .form-validation {
+            width: 200px;
+            height: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            color: white;
+            background-color: rgb(249, 181, 10);
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+    </style>
+    <title>Authentification RS40 Private club - login</title>
+</head>
+<body>
+    
+    <div class="container">
+        
+        <div class="container__form login_form" id="loginForm">
+            <div class="form-select">
+                <span id="loginOption" class="form-option activated">LOGIN</span>
+                <span id="registerOption" class="form-option">REGISTER</span>
+            </div>
+            <form action="{{ url_for('login') }}" method="POST">
+                {% if loginmesage is defined and loginmesage %}
+                    <div class="alert alert-warning">{{ loginmesage }}</div>
+                {% endif %}
+                {% if registermesage is defined and registermesage %}
+                    <div class="alert alert-granted">{{ registermesage }}</div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="e-mail" class="form-input" id="email" name="userEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password :</label>
+                    <input type="password" class="form-input" id="password" name="password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="form-validation">LOGIN</button>
+            </form>
+        </div>
+        
+        <div class="container__form signin_form vanished" id="registerForm">
+            <div class="form-select">
+                <span id="loginOption1" class="form-option">LOGIN</span>
+                <span id="registerOption1" class="form-option activated">REGISTER</span>
+            </div>
+            <form action="{{ url_for('register') }}" method="POST">
+
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="e-mail" class="form-input" id="email" name="useremail" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">User name :</label>
+                    <input type="text" class="form-input" id="username" name="userName" placeholder="Enter your user name">
+                </div>
+
+                <div class="form-group">
+                    <label for="pwd">Password :</label>
+                    <input type="password" class="form-input" id="password" name="password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="form-validation">REGISTER</button>
+            </form>
+        </div>
+        
+
+    </div>
+
+    <script>
+        loginButton = document.getElementById('loginOption');
+        loginButton1 = document.getElementById('loginOption1');
+        loginForm = document.getElementById('loginForm');
+
+        registerButton = document.getElementById('registerOption');
+        registerButton1 = document.getElementById('registerOption1');
+        registerForm = document.getElementById('registerForm');
+
+
+        loginButton.addEventListener('click', ()=>{
+            loginForm.classList.remove('vanished');
+            registerForm.classList.add('vanished');
+        })
+
+        loginButton1.addEventListener('click', ()=>{
+            loginForm.classList.remove('vanished');
+            registerForm.classList.add('vanished');
+        })
+
+        registerButton.addEventListener('click', ()=>{
+            registerForm.classList.remove('vanished');
+            loginForm.classList.add('vanished');
+        })
+
+        registerButton1.addEventListener('click', ()=>{
+            registerForm.classList.remove('vanished');
+            loginForm.classList.add('vanished');
+        })
+    </script>
+</body>
+</html>
